@@ -14,7 +14,7 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<Birds />} />
-          <Route path="/details" element={ <BirdDetails /> } />
+          <Route path="/details/:id" element={ <BirdDetails /> } />
         </Routes>
       </main>
     </>
