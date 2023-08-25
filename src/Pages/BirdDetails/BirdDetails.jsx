@@ -9,19 +9,19 @@ const BirdDetails = (props) => {
   const url = `https://ga-audubon-api.herokuapp.com/api/birds/${id}`;
 
   useEffect(() => {
-    fetchBird();
-  }, []);
+    async function fetchBird() {
+      try {
+        const response = await fetch(url);
+        const birdData = await response.json();
+        // console.log(birdData)
 
-  const fetchBird = async () => {
-    try {
-      const response = await fetch(url);
-      const birdData = await response.json();
-      // console.log(birdData)
-      setBird(birdData);
-    } catch (err) {
-      console.log(err);
+        setBird(birdData);
+      } catch (err) {
+        console.log(err);
+      }
     }
-  };
+    fetchBird();
+  }, [url]);
 
   // Function for when data doesn't exist
   const loading = () => {
@@ -37,14 +37,8 @@ const BirdDetails = (props) => {
           <h2>{bird.name}</h2>
           <h3>({bird.genus})</h3>
           <h4>Conservation Status</h4>
-          <p>
-            {bird.conservationStatus}
-          </p>
-          <a
-            href={bird.homepage}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <p>{bird.conservationStatus}</p>
+          <a href={bird.homepage} target="_blank" rel="noopener noreferrer">
             Read More
           </a>
         </div>
