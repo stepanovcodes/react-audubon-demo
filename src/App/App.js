@@ -1,4 +1,5 @@
 import React from "react";
+import { Routes, Route } from "react-router-dom";
 import Birds from "../Pages/Birds/Birds";
 
 function App() {
@@ -10,7 +11,9 @@ function App() {
         </h1>
       </header>
       <main>
-        <Birds />
+        <Routes>
+          <Route path="/" element={<Birds />} />
+        </Routes>
       </main>
     </>
   );

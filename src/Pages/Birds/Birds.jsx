@@ -9,7 +9,7 @@ const Birds = (props) => {
         "https://ga-audubon-api.herokuapp.com/api/birds"
       );
       const birdData = await response.json();
-      console.log(birdData);
+    //   console.log(birdData);
       setBirds(birdData);
     } catch (err) {
       console.log(err);
@@ -27,7 +27,7 @@ const Birds = (props) => {
     <section className="container">
       {birds.map((bird) => {
         return (
-          <div className="card">
+          <div className="card" key={bird._id}>
             <div className="card-image">
               <img
                 src={bird.image}
