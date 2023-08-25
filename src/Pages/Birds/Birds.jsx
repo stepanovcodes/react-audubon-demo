@@ -17,12 +17,7 @@ const Birds = (props) => {
     }
   };
 
-  // Define an effect function that calls fetchBirds
-  const loadBirds = () => {
-    fetchBirds();
-  };
-
-  useEffect(loadBirds, []);
+  useEffect(() => {fetchBirds()}, []);
 
   return (
     <section className="container">
