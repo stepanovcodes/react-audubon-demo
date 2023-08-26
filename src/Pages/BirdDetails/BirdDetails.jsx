@@ -3,25 +3,32 @@ import { useParams } from "react-router-dom";
 
 const BirdDetails = (props) => {
   const [bird, setBird] = useState(null);
+  const controller = new AbortController();
 
   const { id } = useParams();
 
   const url = `https://ga-audubon-api.herokuapp.com/api/birds/${id}`;
 
-  useEffect(() => {
-    async function fetchBird() {
-      try {
-        const response = await fetch(url);
-        const birdData = await response.json();
-        // console.log(birdData)
+  const fetchBird = async () => {
+    try {
+      const response = await fetch(url, { signal: controller.signal });
+      const birdData = await response.json();
+      // console.log(birdData)
 
-        setBird(birdData);
-      } catch (err) {
-        console.log(err);
-      }
+      setBird(birdData);
+    } catch (err) {
+      console.log(err);
     }
+  };
+
+  const loadBird = () => {
     fetchBird();
-  }, [url]);
+    return () => {
+        controller.abort();
+      };
+  };
+
+  useEffect(loadBird, [loadBird]);
 
   // Function for when data doesn't exist
   const loading = () => {

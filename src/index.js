@@ -10,12 +10,3 @@ ReactDOM.render(
   </Router>,
   document.getElementById("root")
 );
-
-// const root = ReactDOM.createRoot(document.getElementById('root'));
-
-// root.render(
-//     //This allows to access all route features in the App component and and component rendered within App
-//     <Router>
-//       <App />
-//     </Router>
-//   );

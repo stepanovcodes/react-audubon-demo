@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 
 const Birds = (props) => {
   const [birds, setBirds] = useState([]); // <--Set the initial state here by passing it an empty array []
+  const controller = new AbortController();
 
   const fetchBirds = async () => {
     try {
       const response = await fetch(
-        "https://ga-audubon-api.herokuapp.com/api/birds"
+        "https://ga-audubon-api.herokuapp.com/api/birds",
+        { signal: controller.signal }
       );
       const birdData = await response.json();
       //   console.log(birdData);
@@ -17,9 +19,12 @@ const Birds = (props) => {
     }
   };
 
-  // Define an effect function that calls fetchBirds
+  //   Define an effect function that calls fetchBirds
   const loadBirds = () => {
     fetchBirds();
+    return () => {
+      controller.abort();
+    };
   };
 
   useEffect(loadBirds, [loadBirds]);
